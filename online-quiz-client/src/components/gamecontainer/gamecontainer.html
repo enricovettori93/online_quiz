@@ -1,6 +1,9 @@
-
 <section class="gamecontainer">
   <h1>gamecontainer Component</h1>
-  {{ question }}
+  <form>
+    <p><img v-bind:src="question.imageUrl" alt=""></p>
+    <p>Domanda {{ question.question }}</p>
+    <p>Risposte {{ question.answers }}</p>
+    <button>invia</button>
+  </form>
 </section>
-
