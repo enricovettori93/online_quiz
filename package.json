@@ -1,0 +1,19 @@
+{
+  "name": "online_quiz",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/index.js",
+  "scripts": {
+    "watch-app": "cd online-quiz-client && npm run serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enricovettori93/online_quiz.git"
+  },
+  "author": "Enrico Vettori",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/enricovettori93/online_quiz/issues"
+  },
+  "homepage": "https://github.com/enricovettori93/online_quiz#readme"
+}
