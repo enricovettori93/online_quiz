@@ -3,7 +3,9 @@
   <form>
     <p><img v-bind:src="question.imageUrl" alt=""></p>
     <p>Domanda {{ question.question }}</p>
-    <p>Risposte {{ question.answers }}</p>
-    <button>invia</button>
+    <div class="col-6" v-for="answer in question.answers">
+      {{ answer }}
+    </div>
+    <button type="button" class="btn btn-primary">invia</button>
   </form>
 </section>
