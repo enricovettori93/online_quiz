@@ -1,11 +1,12 @@
 <section class="gamecontainer">
   <h1>gamecontainer Component</h1>
-  <form>
+  <form @submit.prevent="postQuestion">
     <p><img v-bind:src="question.imageUrl" alt=""></p>
     <p>Domanda {{ question.question }}</p>
-    <div class="col-6" v-for="answer in question.answers">
-      {{ answer }}
-    </div>
-    <button type="button" class="btn btn-primary">invia</button>
+    <label class="radio-inline col-6" v-for="item in question.answers">
+      <input v-bind:index="item.index" v-model="answer" type="radio" name="choice">
+      {{ item.value }}
+    </label>
+    <button type="submit" class="btn btn-primary">invia</button>
   </form>
 </section>

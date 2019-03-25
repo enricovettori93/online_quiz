@@ -6,7 +6,8 @@ export default {
   props: [],
   data () {
     return {
-      question: undefined,
+      question: '',
+      answer: '',
     }
   },
   computed: {
@@ -21,6 +22,10 @@ export default {
   methods: {
     getQuestion: function() {
       this.question = questionService.getNewQuestion();
-    }
+    },
+    postQuestion: function() {
+      // eslint-disable-next-line no-console
+      console.log(`Sending data ${this.answer}`);
+    },
   }
 }
