@@ -2,9 +2,9 @@
   <h1>gamecontainer Component</h1>
   <form @submit.prevent="postQuestion">
     <p><img v-bind:src="question.imageUrl" alt=""></p>
-    <p>Domanda {{ question.question }}</p>
+    <p>{{ question.question }}</p>
     <label class="radio-inline col-6" v-for="item in question.answers">
-      <input v-bind:index="item.index" v-model="answer" type="radio" name="choice">
+      <input v-bind:index="item.index" v-model="answer" type="radio" name="choice" v-bind:value="item.value">
       {{ item.value }}
     </label>
     <button type="submit" class="btn btn-primary">invia</button>
