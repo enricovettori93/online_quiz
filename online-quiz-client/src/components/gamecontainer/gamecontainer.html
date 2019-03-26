@@ -5,9 +5,13 @@
       <p><img v-bind:src="question.imageUrl" alt=""></p>
       <p>{{ question.question }}</p>
       <div class="row">
-        <div class="col-6" v-for="item in question.answers">
-          <input v-bind:index="item.index" v-model="answer" type="radio" name="choice" v-bind:value="item.value">
-          {{ item.value }}
+        <div class="btn-group btn-group-toggle row" data-toggle="buttons">
+          <div class="col-6" v-for="item in question.answers">
+            <label class="btn btn-secondary">
+              <input type="radio" name="options" v-bind:id="item.index" autocomplete="off" v-model="answer" v-bind:value="item.value">
+              {{ item.value }}
+            </label>
+          </div> 
         </div>
       </div>
       <button type="submit" class="btn btn-primary">invia</button>
