@@ -8,6 +8,8 @@ export default {
     return {
       question: '',
       answer: '',
+      dataReturned: '',
+      aaa: '',
     }
   },
   computed: {
@@ -26,6 +28,7 @@ export default {
     postQuestion: function() {
       // eslint-disable-next-line no-console
       console.log(`Sending data ${this.answer}`);
+      this.dataReturned = questionService.validateAnswer(this.question.id, this.answer);
     },
   }
 }

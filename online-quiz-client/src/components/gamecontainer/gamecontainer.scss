@@ -1,3 +1,22 @@
+$width-button: 8em;
+
 .gamecontainer {
 
+    .container-fluid {
+
+        form {
+
+            button {
+                width: $width-button;
+            }
+
+            label {
+
+                input[type="radio"] {
+                    display: none;
+                }
+                width: $width-button;
+            }
+        }
+    }
 }
