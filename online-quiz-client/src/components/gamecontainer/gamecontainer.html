@@ -11,9 +11,12 @@
           </label>
         </div>
       </div>
-      <div>
+      <div class="send">
         <button type="submit" :disabled="dataReturned !== ''" class="btn btn-primary">Invia</button>
       </div>
     </form>
+    <div v-if="dataReturned !== ''">
+      <button class="btn btn-primary">Prossima domanda</button>
+    </div>
   </div>
 </section>

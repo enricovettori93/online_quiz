@@ -1,10 +1,21 @@
-$width-button: 8em;
+@import '../../styles/_variables';
+@import '../../styles/_colors';
 
 .gamecontainer {
 
+    height: 100%;
+
     .container-fluid {
 
+        height: inherit;
+
         form {
+
+            margin-bottom: 1em;
+
+            div.send {
+                margin-top: 1em;
+            }
 
             button {
                 width: $width-button;
@@ -13,7 +24,7 @@ $width-button: 8em;
             label {
 
                 &.btn-light {
-                    border-color: black;
+                    border-color: $primary-black;
                 }
 
                 input[type="radio"] {
