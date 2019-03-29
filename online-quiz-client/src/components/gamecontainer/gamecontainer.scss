@@ -12,6 +12,10 @@ $width-button: 8em;
 
             label {
 
+                &.btn-light {
+                    border-color: black;
+                }
+
                 input[type="radio"] {
                     display: none;
                 }

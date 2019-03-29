@@ -1,25 +1,19 @@
 <section class="gamecontainer">
   <div class="container-fluid game">
-    <h1>gamecontainer Component</h1>
-    <p>{{ question.question }}</p>
+    <h1>{{ question.question }}</h1>
     <p><img v-bind:src="question.imageUrl" alt=""></p>
-    <span v-if="dataReturned === ''">
-      <form @submit.prevent="postQuestion">
-        <div class="btn-group btn-group-toggle row" data-toggle="buttons">
-          <div class="col-6" v-for="item in question.answers">
-            <label class="btn btn-secondary">
-              <input type="radio" name="options" v-bind:id="item.index" autocomplete="off" v-model="answer" v-bind:value="item.value">
-              {{ item.value }}
-            </label>
-          </div>
+    <form @submit.prevent="postQuestion">
+      <div class="btn-group btn-group-toggle row">
+        <div class="col-6" v-for="item in question.answers">
+          <label class="btn" v-bind:class="[classAnswer, (answer === item.index) ? 'btn-primary' : 'btn-light']">
+            <input type="radio" :disabled="dataReturned !== ''" name="options" v-bind:id="item.index" autocomplete="off" v-model="answer" v-bind:value="item.index">
+            {{ item.value }}
+          </label>
         </div>
-        <div>
-          <button type="submit" class="btn btn-primary">invia</button>
-        </div>
-      </form>
-    </span>
-    <span v-if="dataReturned !== ''">
-      {{ dataReturned }}
-    </span>
+      </div>
+      <div>
+        <button type="submit" :disabled="dataReturned !== ''" class="btn btn-primary">Invia</button>
+      </div>
+    </form>
   </div>
 </section>

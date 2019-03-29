@@ -9,11 +9,16 @@ export default {
       question: '',
       answer: '',
       dataReturned: '',
-      aaa: '',
     }
   },
   computed: {
-
+    classAnswer: function() {
+      if (this.dataReturned !== '') {
+        return (this.dataReturned) ? 'btn-success' : 'btn-danger';
+      } else {
+        return '';
+      }
+    }
   },
   mounted () {
 
@@ -29,6 +34,6 @@ export default {
       // eslint-disable-next-line no-console
       console.log(`Sending data ${this.answer}`);
       this.dataReturned = questionService.validateAnswer(this.question.id, this.answer);
-    },
+    }
   }
 }

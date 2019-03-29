@@ -32,7 +32,7 @@ class QuestionService {
 
     validateAnswer(questionId, index) {
         const question = this.correctAnswer.filter(item => item.id === questionId)[0];
-        return (question.length !== 0 && question.correct === index);
+        return (question && question.correct === index);
     }
 }
 
