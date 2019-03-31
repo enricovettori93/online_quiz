@@ -9,6 +9,7 @@ export default {
       question: '',
       answer: '',
       dataReturned: '',
+      newQuestionAvaiable: true,
     }
   },
   computed: {
@@ -28,11 +29,11 @@ export default {
   },
   methods: {
     getQuestion: function() {
-      this.question = questionService.getNewQuestion();
+      let data = questionService.getNewQuestion();
+      this.question = data.newQuestion;
+      this.newQuestionAvaiable = data.avaiable;
     },
     postQuestion: function() {
-      // eslint-disable-next-line no-console
-      console.log(`Sending data ${this.answer}`);
       this.dataReturned = questionService.validateAnswer(this.question.id, this.answer);
     }
   }
