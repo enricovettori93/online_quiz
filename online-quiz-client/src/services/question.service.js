@@ -88,7 +88,7 @@ class QuestionService {
                 newQuestion: {},
             }
         }
-        const answered = this.userService.getQuestionAnswered();
+        const answered = this.userService.getQuestionAnswered().map(item => item.id);
         const avaiable = [];
         this.questions.forEach((question) => {
             if (answered.indexOf(question.id) === -1) {
@@ -103,9 +103,10 @@ class QuestionService {
     }
 
     validateAnswer(questionId, index) {
-        this.userService.pushQuestionAnswered(questionId);
         const question = this.correctAnswer.filter(item => item.id === questionId)[0];
-        return (question && question.correct === index);
+        const isCorrect = (question && question.correct === index)
+        this.userService.pushQuestionAnswered(questionId, index, isCorrect, question.correct);
+        return isCorrect;
     }
 }
 

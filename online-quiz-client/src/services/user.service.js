@@ -5,12 +5,21 @@ class UserService {
         this.getQuestionAnswered = this.getQuestionAnswered.bind(this);
     }
 
-    pushQuestionAnswered(id) {
-        this.questionAnswered.push(id);
+    pushQuestionAnswered(id, index, isCorrect, correctAnser) {
+        this.questionAnswered.push({
+            id,
+            index,
+            isCorrect,
+            correctAnser,
+        });
     }
     
     getQuestionAnswered() {
         return this.questionAnswered;
+    }
+
+    resetQuestionAnswered() {
+        this.questionAnswered = [];
     }
 }
 

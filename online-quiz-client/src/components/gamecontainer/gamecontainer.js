@@ -1,4 +1,5 @@
 import questionService from '../../services/question.service';
+import userService from '../../services/user.service';
 
 export default {
   name: 'gamecontainer',
@@ -29,8 +30,6 @@ export default {
   },
   methods: {
     getQuestion: function() {
-      // eslint-disable-next-line no-console
-      console.log('Resetting form and getting new question');
       this.resetForm();
       let data = questionService.getNewQuestion();
       this.question = data.newQuestion;
@@ -43,6 +42,10 @@ export default {
       this.question = '',
       this.answer = '',
       this.dataReturned = ''
+    },
+    playAgain: function() {
+      userService.resetQuestionAnswered();
+      this.getQuestion();
     }
   }
 }
