@@ -1,22 +1,28 @@
 <section class="gamecontainer">
   <div class="container-fluid game">
-    <h1>{{ question.question }}</h1>
-    <p><img v-bind:src="question.imageUrl" alt=""></p>
-    <form @submit.prevent="postQuestion">
-      <div class="btn-group btn-group-toggle row">
-        <div class="col-6" v-for="item in question.answers">
-          <label class="btn" v-bind:class="[classAnswer, (answer === item.index) ? 'btn-primary' : 'btn-light']">
-            <input type="radio" :disabled="dataReturned !== ''" name="options" v-bind:id="item.index" autocomplete="off" v-model="answer" v-bind:value="item.index">
-            {{ item.value }}
-          </label>
+    <div v-if="newQuestionAvaiable" class="ingame">
+      <h1>{{ question.question }}</h1>
+      <p><img v-bind:src="question.imageUrl" alt=""></p>
+      <form @submit.prevent="postQuestion">
+        <div class="btn-group btn-group-toggle row">
+          <div class="col-6" v-for="item in question.answers">
+            <label class="btn" v-bind:class="[classAnswer, (answer === item.index) ? 'btn-primary' : 'btn-light']">
+              <input type="radio" :disabled="dataReturned !== ''" name="options" v-bind:id="item.index"
+                autocomplete="off" v-model="answer" v-bind:value="item.index">
+              {{ item.value }}
+            </label>
+          </div>
         </div>
+        <div class="send">
+          <button type="submit" :disabled="dataReturned !== ''" class="btn btn-primary">Invia</button>
+        </div>
+      </form>
+      <div class="nextquestion" v-if="dataReturned !== ''">
+        <button v-on:click="getQuestion" class="btn btn-primary">Prossima domanda</button>
       </div>
-      <div class="send">
-        <button type="submit" :disabled="dataReturned !== ''" class="btn btn-primary">Invia</button>
-      </div>
-    </form>
-    <div class="nextquestion" v-if="dataReturned !== ''">
-      <button v-on:click="getQuestion" class="btn btn-primary">Prossima domanda</button>
     </div>
+  </div>
+  <div v-if="!newQuestionAvaiable" class="nogame">
+    <h1>Hai completato tutte le domande!</h1>
   </div>
 </section>

@@ -9,7 +9,7 @@ class QuestionService {
             correct: 1,
         }, {
             id: 2,
-            correct: 3,
+            correct: 2,
         }];
         this.questions = [{
             question: 'Di che colore è il cavallo bianco di Napoleone?',
