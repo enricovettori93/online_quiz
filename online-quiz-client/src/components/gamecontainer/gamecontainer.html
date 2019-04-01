@@ -26,7 +26,10 @@
     <h1>Hai completato tutte le domande!</h1>
     <div>
       <p>
-        Hai risposto correttamente a n domande su m.
+        Hai risposto correttamente a {{ lengthcorrect }} domande su {{ lengthtotal }}.
+      </p>
+      <p v-for="(answer, index) in answered">
+        Domanda {{ index }}: {{ answer.isCorrect ? 'Risposta giusta' : 'Risposta sbagliata'}}
       </p>
       <div>
         <button v-on:click="playAgain" class="btn btn-primary">Riprova</button>
