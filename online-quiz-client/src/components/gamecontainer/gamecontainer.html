@@ -2,7 +2,7 @@
   <div class="container-fluid game">
     <div v-if="newQuestionAvaiable" class="ingame">
       <h1>{{ question.question }}</h1>
-      <p><img v-bind:src="question.imageUrl" alt=""></p>
+      <img v-bind:src="question.imageUrl" alt="gameImg" class="gameimg">
       <form @submit.prevent="postQuestion">
         <div class="btn-group btn-group-toggle row">
           <div class="col-6" v-for="item in question.answers">

@@ -9,6 +9,14 @@
 
         height: inherit;
 
+        img {
+            &.gameimg {
+                height: 40vh;
+                margin-top: 1em;
+                margin-bottom: 2em;
+            }
+        }
+
         form {
 
             margin-bottom: 1em;
