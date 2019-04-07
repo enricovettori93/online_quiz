@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
-    "watch-app": "cd online-quiz-client && npm run serve",
+    "watch-app": "cd client && npm run serve",
     "install-client": "cd online-quiz-client && npm i"
   },
   "repository": {
