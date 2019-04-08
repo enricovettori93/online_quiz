@@ -5,7 +5,7 @@
       <img v-bind:src="question.imageUrl" alt="gameImg" class="gameimg">
       <form @submit.prevent="postQuestion">
         <div class="btn-group btn-group-toggle row">
-          <div class="col-6" v-for="item in question.answers">
+          <div class="col-6" v-for="item in question.answers" :key="item.id">
             <label class="btn" v-bind:class="[classAnswer, (answer === item.index) ? 'btn-primary' : 'btn-light']">
               <input type="radio" :disabled="dataReturned !== ''" name="options" v-bind:id="item.index"
                 autocomplete="off" v-model="answer" v-bind:value="item.index">
