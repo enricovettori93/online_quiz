@@ -1,4 +1,5 @@
 const seeder = require('mongoose-seed');
+const { getModel } = require('./models/Question');
 
 // MongoDB conf
 const config = {
@@ -9,7 +10,7 @@ const config = {
 
 seeder.connect(`mongodb://${config.ip}:${config.port}/${config.name}`, function() {
     seeder.loadModels([
-        'models/Question.js',
+        'models/QuestionSeed.js',
     ]);
     seeder.clearModels(['Question'], function() {
         seeder.populateModels(questions, function() {
@@ -22,7 +23,6 @@ const questions = [{
     'model': 'Question',
     'documents': [
         {
-            'id': 0,
             'question': 'Di che colore è il cavallo bianco di Napoleone?',
             'answer1': 'Magenta',
             'answer2': 'Blu',

@@ -32,27 +32,8 @@ const questionSchema = new mongoose.Schema({
 });
 
 // questionModel will be singleton
-let questionModel;
-
-function getSchema() {
-    return questionSchema;
-};
-
-function getModel() {
-    if (!questionModel) {
-        questionModel = mongoose.model('Question', getSchema());
-    }
-    return questionModel;
-};
-
-function newQuestion(data) {
-    let _questionModel = getModel();
-    let question = new _questionModel(data);
-    return question;
-};
+let questionModel = mongoose.model('Question', questionSchema);;
 
 module.exports = {
-    getModel,
-    getSchema,
-    newQuestion,
+    questionModel,
 };
