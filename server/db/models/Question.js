@@ -28,31 +28,35 @@ const questionSchema = new mongoose.Schema({
     correctAnswer: {
         type: mongoose.SchemaTypes.String,
         required: true,
+    },
+    imageName: {
+        type: mongoose.SchemaTypes.String,
+        required: true,
     }
 });
 
 // questionModel will be singleton
-const questionModel;
+let questionModel;
 
 function getSchema() {
     return questionSchema;
-}
+};
 
 function getModel() {
     if (!questionModel) {
         questionModel = mongoose.model('Question', getSchema());
     }
     return questionModel;
-}
+};
 
 function newQuestion(data) {
     let _questionModel = getModel();
     let question = new _questionModel(data);
     return question;
-}
+};
 
 module.exports = {
     getModel,
     getSchema,
     newQuestion,
-}
+};

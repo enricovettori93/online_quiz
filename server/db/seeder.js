@@ -1,4 +1,5 @@
 const seeder = require('mongoose-seed');
+
 // MongoDB conf
 const config = {
     port: 27017,
@@ -6,12 +7,12 @@ const config = {
     name: 'online_quiz',
 }
 
-seeder.connect(`mongodb://${config.ip}:${config.port}/${config.name}`, () => {
+seeder.connect(`mongodb://${config.ip}:${config.port}/${config.name}`, function() {
     seeder.loadModels([
-        './models/Question.js',
+        'models/Question.js',
     ]);
-    seeder.clearModels(['Question'], () => {
-        seeder.populateModels(questions, () => {
+    seeder.clearModels(['Question'], function() {
+        seeder.populateModels(questions, function() {
             seeder.disconnect();
         });
     });
@@ -28,6 +29,7 @@ const questions = [{
             'answer3': 'Arcobaleno',
             'answer4': 'Verde pisello',
             'correctAnswer': 'Verde pisello',
+            'imageName': 'napoleone.png'
         }
     ]
-}]
+}];
