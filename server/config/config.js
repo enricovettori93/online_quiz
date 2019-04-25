@@ -5,6 +5,11 @@ const backend = {
         ip: process.env.APP_NODE_IP,
         socketPort: process.env.APP_NODE_SOCKET_PORT,
     },
+    db: {
+        port: process.env.MONGO_PORT,
+        ip: process.env.MONGO_IP,
+        name: process.env.MONGO_NAME,
+    },
     log: {
         types: [{
             type: 'NORMAL',
