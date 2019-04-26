@@ -1,5 +1,5 @@
 const seeder = require('mongoose-seed');
-const { getModel } = require('./models/Question');
+const { getModel } = require('./models/question');
 
 // MongoDB conf
 const config = {
@@ -10,7 +10,7 @@ const config = {
 
 seeder.connect(`mongodb://${config.ip}:${config.port}/${config.name}`, function() {
     seeder.loadModels([
-        'models/QuestionSeed.js',
+        'models/questionSeed.js',
     ]);
     seeder.clearModels(['Question'], function() {
         seeder.populateModels(questions, function() {

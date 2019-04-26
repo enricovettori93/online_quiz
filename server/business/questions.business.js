@@ -1,3 +1,5 @@
+const questionRepository = require('../repository/question.repository');
+
 module.exports = class QuestionBusiness {
     constructor() {
         this.getAllQuestions = this.getAllQuestions.bind(this);
@@ -5,14 +7,10 @@ module.exports = class QuestionBusiness {
     }
 
     getAllQuestions() {
-        return new Promise((resolve, reject) => {
-            return resolve('Get all questions it works!');
-        });
+        return questionRepository.getAllQuestions();
     }
 
     getSingleQuestion(questionId) {
-        return new Promise((resolve, reject) => {
-            return resolve(`Get single question it works with questionId: ${questionId}!`);
-        });
+        return questionRepository.findById(questionId);
     }
 }
