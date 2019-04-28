@@ -9,7 +9,7 @@
     "start-backend-prod": "cd server && node index.js",
     "install-client": "cd online-quiz-client && npm i",
     "start-mongo": "mongod --dbpath ./server/data",
-    "seeder": "cd server/db && npm run seeder.js"
+    "seeder": "cd server/db && node seeder.js"
   },
   "repository": {
     "type": "git",

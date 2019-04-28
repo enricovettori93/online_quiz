@@ -1,5 +1,4 @@
 const seeder = require('mongoose-seed');
-const { getModel } = require('./models/question');
 
 // MongoDB conf
 const config = {
