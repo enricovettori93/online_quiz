@@ -12,6 +12,7 @@ const expressConfig = require('./config/express');
 const { backend } = require('./config/config');
 const logService = require('./services/logger.services');
 const routes = require('./config/routes');
+const userModel = require('./db/models/user');
 
 const app = express();
 
@@ -26,13 +27,25 @@ const server = http.createServer(app);
 mongoose.connect(`mongodb://${backend.db.ip}:${backend.db.port}/${backend.db.name}`).then(
     function onconnected() {
         logService.log('NORMAL', 'Connected to MongoDB, starting webserver');
-        server.listen(
-            backend.general.port,
-            backend.general.ip,
-            () => {
-                logService.log('NORMAL', `Booting up server ${backend.general.ip}:${backend.general.port}`);
+        let model = userModel.getModel();
+        model.find({}).then((data) => {
+            if(!data) {
+                let admin = userModel.newUser({
+                    'username': process.env.APP_ADMIN_USERNAME,
+                    'password': process.env.APP_ADMIN_PASSWORD,
+                });
+                return admin.save();
             }
-        )
+            return -1;
+        }).then(() => {
+            server.listen(
+                backend.general.port,
+                backend.general.ip,
+                () => {
+                    logService.log('NORMAL', `Booting up server ${backend.general.ip}:${backend.general.port}`);
+                }
+            )
+        }).catch(err => logService.log('ERROR', `Unable to create admin user: ${err}`));
     },
 
     function onrejected() {
