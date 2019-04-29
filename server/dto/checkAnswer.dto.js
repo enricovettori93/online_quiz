@@ -1,6 +1,6 @@
 function checkAnswerDTO (data) {
     let dto = {};
-    dto.answerId = data.answerId;
+    dto.id = data.answerId;
     dto.isCorrect = data.isCorrect;
     return dto;
 }

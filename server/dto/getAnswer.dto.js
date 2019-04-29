@@ -1,6 +1,6 @@
 function getAnswerDTO(data)  {
     let app = {};
-    app._id = data._id;
+    app.id = data._id;
     app.question = data.question;
     app.answer1 = data.answer1;
     app.answer2 = data.answer2;
