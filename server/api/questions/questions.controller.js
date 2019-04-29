@@ -8,6 +8,7 @@ module.exports = class QuestionController {
         this.getAllQuestions = this.getAllQuestions.bind(this);
         this.getSingleQuestion = this.getSingleQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
+        this.newQuestion = this.newQuestion.bind(this);
     }
 
     getAllQuestions(req, res) {
@@ -26,5 +27,9 @@ module.exports = class QuestionController {
         this.questionBusiness.checkAnswer(req.params.questionId, req.body.answer)
             .then(data => res.status(200).json(data))
             .catch(err => res.status(SERVER_ERROR.code).json(err));
+    }
+
+    newQuestion(req, res) {
+        res.status(200).json('ok');
     }
 }

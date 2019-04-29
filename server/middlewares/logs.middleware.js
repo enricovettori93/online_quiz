@@ -8,7 +8,7 @@ const logger = require('../services/logger.services');
  */
 function middlewareLog(req, res, next) {
     // do not block operations while logging
-    let logContent = `${req.ip} calling ${req.originalUrl}`;
+    let logContent = `${req.ip} calling ${req.method} ${req.originalUrl}`;
 
     if (req.body) {
         logContent += '\n body: ';

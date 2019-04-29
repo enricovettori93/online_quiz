@@ -8,7 +8,7 @@ const cors = require('cors');
 const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
 
-const expressConfig = require('./config/express');
+const { sessionInstance } = require('./config/express');
 const { backend } = require('./config/config');
 const logService = require('./services/logger.services');
 const routes = require('./config/routes');
@@ -18,6 +18,7 @@ const app = express();
 
 app.use(bodyparser.json());
 app.use(cors());
+app.use(sessionInstance);
 routes.configRoutes(app)
 
 

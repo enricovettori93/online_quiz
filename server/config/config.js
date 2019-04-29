@@ -21,6 +21,9 @@ const backend = {
             type: 'ERROR',
             color: 'red',
         }]
+    },
+    secret: {
+        password: process.env.APP_CRYPT_ALGORITHM,
     }
 }
 
