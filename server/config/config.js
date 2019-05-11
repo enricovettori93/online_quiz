@@ -24,6 +24,7 @@ const backend = {
     },
     secret: {
         password: process.env.APP_CRYPT_ALGORITHM,
+        key: process.env.APP_SESSION_KEY,
     }
 }
 

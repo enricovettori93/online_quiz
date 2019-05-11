@@ -38,7 +38,10 @@ mongoose.connect(`mongodb://${backend.db.ip}:${backend.db.port}/${backend.db.nam
                 return admin.save();
             }
             return -1;
-        }).then(() => {
+        }).then((data) => {
+            (data === -1) ?
+                logService.log('NORMAL', 'Admin already exists'):
+                logService.log('NORMAL', 'Admin created');
             server.listen(
                 backend.general.port,
                 backend.general.ip,

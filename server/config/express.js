@@ -3,6 +3,7 @@ const { backend } = require('../config/config');
 
 const sessionInstance = session({
     secret: backend.secret.password,
+    key: backend.secret.key,
     cookie: {
         maxAge: 60 * 60 * 52000,
     },

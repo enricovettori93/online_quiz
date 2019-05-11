@@ -9,8 +9,8 @@ class UserRepository {
 
     getUserByUsername(username) {
         return new Promise((resolve, reject) => {
-            this.userModel.findOne({ 'username': username})
-                .then(data => resolve(data[0]))
+            this.userModel.find({ username })
+                .then(data => (data && data.length !== 0) ? resolve(data[0]) : reject('User not found'))
                 .catch(err => reject(err));
         });
     }
