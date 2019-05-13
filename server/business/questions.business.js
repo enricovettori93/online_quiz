@@ -32,6 +32,9 @@ module.exports = class QuestionBusiness {
         return new Promise((resolve, reject) => {
             questionRepository.findById(_id)
                 .then((data) => {
+                    if (!data || data.length === 0) {
+                        reject(BAD_REQUEST);
+                    }
                     let app = {};
                     app.answerId = _id;
                     app.isCorrect = data[0].correctAnswer === answer;
