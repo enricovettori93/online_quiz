@@ -1,6 +1,7 @@
 const questionRepository = require('../repository/question.repository');
 const checkAnswerDTO = require('../dto/checkAnswer.dto');
 const getAnswerDTO = require('../dto/getAnswer.dto');
+const { BAD_REQUEST } = require('../exceptions/messagges');
 
 module.exports = class QuestionBusiness {
     constructor() {
@@ -20,7 +21,9 @@ module.exports = class QuestionBusiness {
     getSingleQuestion(questionId) {
         return new Promise((resolve, reject) => {
             questionRepository.findById(questionId)
-                .then(data => resolve(getAnswerDTO(data[0])))
+                .then((data) => {
+                    (data && data.length !== 0) ? resolve(getAnswerDTO(data[0])) : reject(BAD_REQUEST);
+                })
                 .catch(err => reject(err));
         })
     }

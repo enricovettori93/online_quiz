@@ -1,4 +1,5 @@
 const UserModel = require('../db/models/user');
+const { BAD_REQUEST } = require('../exceptions/messagges');
 
 class UserRepository {
     constructor() {
@@ -10,7 +11,7 @@ class UserRepository {
     getUserByUsername(username) {
         return new Promise((resolve, reject) => {
             this.userModel.find({ username })
-                .then(data => (data && data.length !== 0) ? resolve(data[0]) : reject('User not found'))
+                .then(data => (data && data.length !== 0) ? resolve(data[0]) : reject(BAD_REQUEST))
                 .catch(err => reject(err));
         });
     }

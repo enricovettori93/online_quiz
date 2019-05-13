@@ -30,7 +30,7 @@ mongoose.connect(`mongodb://${backend.db.ip}:${backend.db.port}/${backend.db.nam
         logService.log('NORMAL', 'Connected to MongoDB, starting webserver');
         let model = userModel.getModel();
         model.find({}).then((data) => {
-            if(!data) {
+            if(!data || data.length === 0) {
                 let admin = userModel.newUser({
                     'username': process.env.APP_ADMIN_USERNAME,
                     'password': process.env.APP_ADMIN_PASSWORD,

@@ -1,4 +1,5 @@
 const userRepository = require('../repository/user.repository');
+const { BAD_REQUEST } = require('../exceptions/messagges');
 
 module.exports = class UserBusiness {
     constructor() {
@@ -17,7 +18,12 @@ module.exports = class UserBusiness {
     login(username, password) {
         return new Promise((resolve, reject) => {
             userRepository.getUserByUsername(username)
-                .then(data => resolve(data.password === password))
+                .then((data) => {
+                    if (data.password === password) {
+                        resolve('Login success');
+                    }
+                    throw(BAD_REQUEST);
+                })
                 .catch(err => reject(err));
         });
     }

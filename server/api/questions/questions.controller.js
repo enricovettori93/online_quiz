@@ -1,4 +1,3 @@
-const { SERVER_ERROR } = require('../../exceptions/messagges');
 const QuestionBusiness = require('../../business/questions.business');
 
 module.exports = class QuestionController {
@@ -14,19 +13,19 @@ module.exports = class QuestionController {
     getAllQuestions(req, res) {
         this.questionBusiness.getAllQuestions()
             .then(data => res.status(200).json(data))
-            .catch(err => res.status(SERVER_ERROR.code).json(err));
+            .catch(err => res.status(err.code).json(err.message));
     }
 
     getSingleQuestion(req, res) {
         this.questionBusiness.getSingleQuestion(req.params.questionId)
             .then(data => res.status(200).json(data))
-            .catch(err => res.status(SERVER_ERROR.code).json(err));
+            .catch(err => res.status(err.code).json(err.message));
     }
 
     checkAnswer(req, res) {
         this.questionBusiness.checkAnswer(req.params.questionId, req.body.answer)
             .then(data => res.status(200).json(data))
-            .catch(err => res.status(SERVER_ERROR.code).json(err));
+            .catch(err => res.status(err.code).json(err.message));
     }
 
     newQuestion(req, res) {
