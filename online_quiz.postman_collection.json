@@ -1,86 +1,160 @@
 {
 	"info": {
+		"_postman_id": "3347f835-b1e3-4360-959e-0a879cc7d709",
 		"name": "online_quiz",
-		"_postman_id": "85b17978-d0af-417b-84ac-0957861ab253",
-		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Fetch all questions",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:3005/api/questions",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"questions"
-					]
+			"name": "Questions",
+			"item": [
+				{
+					"name": "Fetch _id question",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/questions/5cc57ce0af6af347113a19c8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"questions",
+								"5cc57ce0af6af347113a19c8"
+							]
+						}
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
+				{
+					"name": "Fetch all questions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/questions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"questions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get _id result answer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"answer\": \"Verde pisello\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/questions/5cc57ce0af6af347113a19c8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"questions",
+								"5cc57ce0af6af347113a19c8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"question\": \"prova\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/questions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"questions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "Get _id result answer",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"answer\": \"Verde pisello\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:3005/api/questions/5cc57ce0af6af347113a19c8",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"questions",
-						"5cc57ce0af6af347113a19c8"
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "Fetch _id question",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:3005/api/questions/5cc57ce0af6af347113a19c8",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3005",
-					"path": [
-						"api",
-						"questions",
-						"5cc57ce0af6af347113a19c8"
-					]
-				},
-				"description": ""
-			},
-			"response": []
+			"name": "User",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3005/api/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3005",
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
