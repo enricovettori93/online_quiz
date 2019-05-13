@@ -1,13 +1,14 @@
 const questionRepository = require('../repository/question.repository');
 const checkAnswerDTO = require('../dto/checkAnswer.dto');
 const getAnswerDTO = require('../dto/getAnswer.dto');
-const { BAD_REQUEST } = require('../exceptions/messagges');
+const { BAD_REQUEST, SERVER_ERROR } = require('../exceptions/messagges');
 
 module.exports = class QuestionBusiness {
     constructor() {
         this.getAllQuestions = this.getAllQuestions.bind(this);
         this.getSingleQuestion = this.getSingleQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
+        this.newQuestion = this.newQuestion.bind(this);
     }
 
     getAllQuestions() {
@@ -41,6 +42,15 @@ module.exports = class QuestionBusiness {
                     resolve(checkAnswerDTO(app));
                 })
                 .catch(err => reject(err)); 
+        });
+    }
+
+    // TODO: missing file upload handling
+    newQuestion(data) {
+        return new Promise((resolve, reject) => {
+            questionRepository.newQuestion(data)
+                .then(() => resolve())
+                .catch(err => reject(SERVER_ERROR));
         });
     }
 }

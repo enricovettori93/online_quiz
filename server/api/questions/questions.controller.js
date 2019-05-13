@@ -29,6 +29,8 @@ module.exports = class QuestionController {
     }
 
     newQuestion(req, res) {
-        res.status(200).json('ok');
+        this.questionBusiness.newQuestion(req.params.questionId, req.body.answer)
+            .then(data => res.status(200).json(data))
+            .catch(err => res.status(err.code).json(err.message));
     }
 }

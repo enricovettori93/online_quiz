@@ -5,6 +5,8 @@ class QuestionRepository {
         this.questionModel = QuestionModel.getModel();
 
         this.getAllQuestions = this.getAllQuestions.bind(this);
+        this.findById = this.findById.bind(this);
+        this.newQuestion = this.newQuestion.bind(this);
     }
 
     getAllQuestions() {
@@ -19,6 +21,14 @@ class QuestionRepository {
         return new Promise((resolve, reject) => {
             this.questionModel.find({_id})
                 .then(data => resolve(data))
+                .catch(err => reject(err));
+        });
+    }
+
+    newQuestion(data) {
+        return new Promise((resolve, reject) => {
+            this.questionModel.newQuestion(data).save()
+                .then(() => resolve())
                 .catch(err => reject(err));
         });
     }
