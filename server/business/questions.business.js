@@ -39,6 +39,7 @@ module.exports = class QuestionBusiness {
                     let app = {};
                     app.answerId = _id;
                     app.isCorrect = data[0].correctAnswer === answer;
+                    app.description = data[0].description;
                     resolve(checkAnswerDTO(app));
                 })
                 .catch(err => reject(err)); 

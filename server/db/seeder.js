@@ -27,6 +27,7 @@ const questions = [{
             'answer2': 'Blu',
             'answer3': 'Arcobaleno',
             'answer4': 'Verde pisello',
+            'description': 'Descrizione cavallo bianco',
             'correctAnswer': 'Verde pisello',
             'imageName': 'napoleone.png'
         },
@@ -36,6 +37,7 @@ const questions = [{
             'answer2': 'Chanel',
             'answer3': 'Kiro',
             'answer4': 'Tigro',
+            'description': 'Descrizione di Kiro',
             'correctAnswer': 'Kiro',
             'imageName': 'kiro.png'
         }

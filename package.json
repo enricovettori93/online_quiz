@@ -8,7 +8,7 @@
     "watch-backend": "cd server && nodemon --inspect index.js",
     "start-backend": "concurrently \"npm run start-mongo\" \"cd server && node --inspect index.js\"",
     "start-backend-prod": "cd server && node index.js",
-    "install-client": "cd online-quiz-client && npm i",
+    "install-client": "cd client && npm i",
     "start-mongo": "mongod --dbpath ./server/data",
     "seeder": "cd server/db && node seeder.js"
   },

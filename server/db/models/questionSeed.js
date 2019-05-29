@@ -21,6 +21,10 @@ const questionSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.String,
         required: true,
     },
+    description: {
+        type: mongoose.SchemaTypes.String,
+        required: false,
+    },
     correctAnswer: {
         type: mongoose.SchemaTypes.String,
         required: true,
