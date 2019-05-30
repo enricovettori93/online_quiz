@@ -1,3 +1,4 @@
+const path = require('path');
 const questionRepository = require('../repository/question.repository');
 const checkAnswerDTO = require('../dto/checkAnswer.dto');
 const getAnswerDTO = require('../dto/getAnswer.dto');
@@ -46,12 +47,14 @@ module.exports = class QuestionBusiness {
         });
     }
 
-    // TODO: missing file upload handling
-    newQuestion(data) {
+    newQuestion(data, image) {
         return new Promise((resolve, reject) => {
             questionRepository.newQuestion(data)
-                .then(() => data.img.mv(`./static/${data.img.name}`))
-                .then(() => resolve())
+                .then(() => {
+                    let uploadFolder = path.resolve(`../server/static/${image.name}`);
+                    return image.mv(uploadFolder);
+                })
+                .then(() => resolve('New answer correctly inserted!'))
                 .catch(err => reject(SERVER_ERROR));
         });
     }

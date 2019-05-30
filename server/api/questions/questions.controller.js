@@ -37,9 +37,9 @@ module.exports = class QuestionController {
             answer4: req.body.answer4,
             description: req.body.description,
             correctAnswer: req.body.correctAnswer,
-            img: req.files.img,
+            imageName: req.files.img.name
         };
-        this.questionBusiness.newQuestion(questionData)
+        this.questionBusiness.newQuestion(questionData, req.files.img)
             .then(data => res.status(200).json(data))
             .catch(err => res.status(err.code).json(err.message));
     }

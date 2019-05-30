@@ -27,7 +27,7 @@ class QuestionRepository {
 
     newQuestion(data) {
         return new Promise((resolve, reject) => {
-            this.questionModel.newQuestion(data).save()
+            QuestionModel.newQuestion(data).save()
                 .then(() => resolve())
                 .catch(err => reject(err));
         });
