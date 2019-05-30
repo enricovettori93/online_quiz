@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3347f835-b1e3-4360-959e-0a879cc7d709",
+		"_postman_id": "6168317a-2602-450e-a9e4-8d544e0f3d4b",
 		"name": "online_quiz",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -13,10 +13,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3005/api/questions/5cc57ce0af6af347113a19c8",
 							"protocol": "http",
@@ -38,10 +34,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3005/api/questions",
 							"protocol": "http",
@@ -95,13 +87,54 @@
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/json",
+								"value": "application/x-www-form-urlencoded",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"question\": \"prova\"\n}"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "question",
+									"value": "prova inserimento",
+									"type": "text"
+								},
+								{
+									"key": "answer1",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "answer2",
+									"value": "456",
+									"type": "text"
+								},
+								{
+									"key": "answer3",
+									"value": "789",
+									"type": "text"
+								},
+								{
+									"key": "answer4",
+									"value": "159",
+									"type": "text"
+								},
+								{
+									"key": "correctAnswer",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "prova descrizione",
+									"type": "text"
+								},
+								{
+									"key": "img",
+									"type": "file",
+									"src": "/C:/Users/evett/Google Drive/DRIVER/Fiorentini/qrcode/vagina2.png"
+								}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:3005/api/questions",
@@ -159,10 +192,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3005/api/user/logout",
 							"protocol": "http",

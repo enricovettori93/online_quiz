@@ -7,6 +7,7 @@ const http = require('http');
 const cors = require('cors');
 const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload');
 
 const { sessionInstance } = require('./config/express');
 const { backend } = require('./config/config');
@@ -16,6 +17,15 @@ const userModel = require('./db/models/user');
 
 const app = express();
 
+// Setup app configuration
+app.use(bodyparser.urlencoded({ 
+    extended: true,
+    uploadDir: './static',
+}));
+app.use(fileUpload({
+    abortOnLimit: true,
+    limits: { fileSize: 100 * 1024 * 1024 },
+}));
 app.use(bodyparser.json());
 app.use(cors());
 app.use(sessionInstance);

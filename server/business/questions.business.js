@@ -50,6 +50,7 @@ module.exports = class QuestionBusiness {
     newQuestion(data) {
         return new Promise((resolve, reject) => {
             questionRepository.newQuestion(data)
+                .then(() => data.img.mv(`./static/${data.img.name}`))
                 .then(() => resolve())
                 .catch(err => reject(SERVER_ERROR));
         });

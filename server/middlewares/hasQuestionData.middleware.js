@@ -7,7 +7,8 @@ function hasQuestionDataMiddleware(req, res, next) {
         || !req.body.answer2
         || !req.body.answer3
         || !req.body.answer4
-        || !req.files.img) {
+        || !req.files.img
+        || !req.body.correctAnswer) {
         logger.log('WARN', 'Login middleware, missing parameters');
         res.status(MISSING_PARAMETERS.code).json(MISSING_PARAMETERS.message);
     } else {

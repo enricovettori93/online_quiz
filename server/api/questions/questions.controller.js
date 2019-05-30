@@ -29,7 +29,17 @@ module.exports = class QuestionController {
     }
 
     newQuestion(req, res) {
-        this.questionBusiness.newQuestion(req.params.questionId, req.body.answer)
+        let questionData = {
+            question: req.body.question,
+            answer1: req.body.answer1,
+            answer2: req.body.answer2,
+            answer3: req.body.answer3,
+            answer4: req.body.answer4,
+            description: req.body.description,
+            correctAnswer: req.body.correctAnswer,
+            img: req.files.img,
+        };
+        this.questionBusiness.newQuestion(questionData)
             .then(data => res.status(200).json(data))
             .catch(err => res.status(err.code).json(err.message));
     }
