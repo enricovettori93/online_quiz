@@ -29,7 +29,7 @@ const questions = [{
             'answer4': 'Verde pisello',
             'description': 'Descrizione cavallo bianco',
             'correctAnswer': 'Verde pisello',
-            'imageName': 'napoleone.png'
+            'imageName': 'test1.png'
         },
         {
             'question': 'Qual\'è l\'animale più bello al mondo?',
@@ -39,7 +39,7 @@ const questions = [{
             'answer4': 'Tigro',
             'description': 'Descrizione di Kiro',
             'correctAnswer': 'Kiro',
-            'imageName': 'kiro.png'
+            'imageName': 'test2.png'
         }
     ]
 }];

@@ -1,5 +1,14 @@
+#PC configuration
 .env
 node_modules
 .vs
+
+# MongoDB data
 /server/data/*
 !/server/data/.gitkeep
+
+#Static files
+/server/static/*
+!/server/static/test1.png
+!/server/static/test2.png
+!/server/static/.gitkeep

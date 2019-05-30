@@ -22,9 +22,10 @@ app.use(sessionInstance);
 routes.configRoutes(app)
 
 
-// Booting server
+// Creating server
 const server = http.createServer(app);
 
+// Connect to mongodb
 mongoose.connect(`mongodb://${backend.db.ip}:${backend.db.port}/${backend.db.name}`).then(
     function onconnected() {
         logService.log('NORMAL', 'Connected to MongoDB, starting webserver');
@@ -40,8 +41,8 @@ mongoose.connect(`mongodb://${backend.db.ip}:${backend.db.port}/${backend.db.nam
             return -1;
         }).then((data) => {
             (data === -1) ?
-                logService.log('NORMAL', 'Admin already exists'):
-                logService.log('NORMAL', 'Admin created');
+                logService.log('NORMAL', 'User -> Admin already exists'):
+                logService.log('NORMAL', 'User -> Admin created');
             server.listen(
                 backend.general.port,
                 backend.general.ip,

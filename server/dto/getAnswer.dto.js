@@ -7,6 +7,7 @@ function getAnswerDTO(data)  {
     app.answer3 = data.answer3;
     app.answer4 = data.answer4;
     app.imageName = data.imageName;
+    app.imagePath = `/static/${data.imageName}`;
     return app;
 }
 
