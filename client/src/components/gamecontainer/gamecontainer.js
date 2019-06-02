@@ -9,6 +9,7 @@ export default {
     return {
       question: '',
       answer: '',
+      answers: [],
       dataReturned: '',
       newQuestionAvaiable: true,
       lengthcorrect: '',
@@ -19,7 +20,7 @@ export default {
   computed: {
     classAnswer: function() {
       if (this.dataReturned !== '') {
-        return (this.dataReturned) ? 'btn-success' : 'btn-danger';
+        return (this.dataReturned.isCorrect) ? 'btn-success' : 'btn-danger';
       } else {
         return '';
       }
@@ -29,22 +30,45 @@ export default {
 
   },
   created() {
-    this.getQuestion();
+    questionService.fetchAllQuestions()
+      .then(() => this.getQuestion())
+      .catch(err => console.error(err));
   },
   methods: {
     getQuestion: function() {
       this.resetForm();
-      let data = questionService.getNewQuestion();
-      this.question = data.newQuestion;
-      this.newQuestionAvaiable = data.avaiable;
-      if (!data.avaiable) {
-        this.answered = userService.getQuestionAnswered();
-        this.lengthtotal = this.answered.length;
-        this.lengthcorrect = this.answered.filter(item => item.index === item.correctAnswer).length;
-      }
+      questionService.getNewQuestion()
+        .then((returnData) => {
+          let data = returnData;
+          this.answers.push({
+            index: 0,
+            value: returnData.newQuestion.answer1,
+          });
+          this.answers.push({
+            index: 1,
+            value: returnData.newQuestion.answer2,
+          });
+          this.answers.push({
+            index: 2,
+            value: returnData.newQuestion.answer3,
+          });
+          this.answers.push({
+            index: 3,
+            value: returnData.newQuestion.answer4,
+          });
+          this.question = data.newQuestion;
+          this.newQuestionAvaiable = data.avaiable;
+          if (!data.avaiable) {
+            this.answered = userService.getQuestionAnswered();
+            this.lengthtotal = this.answered.length;
+            this.lengthcorrect = this.answered.filter(item => item.index === item.correctAnswer).length;
+          }
+        })
     },
     postQuestion: function() {
-      this.dataReturned = questionService.validateAnswer(this.question.id, this.answer);
+      questionService.validateAnswer(this.question.id, this.answer)
+        .then(data => this.dataReturned = data)
+        .catch(err => console.error(err));
     },
     resetForm: function() {
       this.question = '';

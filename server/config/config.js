@@ -4,6 +4,8 @@ const backend = {
         port: process.env.APP_NODE_PORT,
         ip: process.env.APP_NODE_IP,
         socketPort: process.env.APP_NODE_SOCKET_PORT,
+        uploadFolder: process.env.UPLOAD_FOLDER,
+        protocol: process.env.API_PROTOCOL,
     },
     db: {
         port: process.env.MONGO_PORT,

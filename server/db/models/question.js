@@ -23,7 +23,7 @@ const questionSchema = new mongoose.Schema({
     },
     description: {
         type: mongoose.SchemaTypes.String,
-        required: false,
+        required: true,
     },
     correctAnswer: {
         type: mongoose.SchemaTypes.String,

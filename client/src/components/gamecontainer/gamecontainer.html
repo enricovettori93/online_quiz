@@ -2,13 +2,13 @@
   <div class="container-fluid game">
     <div v-if="newQuestionAvaiable" class="ingame">
       <h1>{{ question.question }}</h1>
-      <img v-bind:src="question.imageUrl" alt="gameImg" class="gameimg">
+      <img v-bind:src="question.imagePath" alt="gameImg" class="gameimg">
       <form @submit.prevent="postQuestion">
         <div class="btn-group btn-group-toggle row">
-          <div class="col-6" v-for="item in question.answers" :key="item.id">
-            <label class="btn" v-bind:class="[classAnswer, (answer === item.index) ? 'btn-primary' : 'btn-light']">
+          <div class="col-6" v-for="item in answers" :key="item.id">
+            <label class="btn" v-bind:class="[classAnswer, (answer === item.value) ? 'btn-primary' : 'btn-light']">
               <input type="radio" :disabled="dataReturned !== ''" name="options" v-bind:id="item.index"
-                autocomplete="off" v-model="answer" v-bind:value="item.index">
+                autocomplete="off" v-model="answer" v-bind:value="item.value">
               {{ item.value }}
             </label>
           </div>

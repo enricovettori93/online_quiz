@@ -1,3 +1,5 @@
+const { backend } = require('../config/config');
+
 function getAnswerDTO(data)  {
     let app = {};
     app.id = data._id;
@@ -7,7 +9,7 @@ function getAnswerDTO(data)  {
     app.answer3 = data.answer3;
     app.answer4 = data.answer4;
     app.imageName = data.imageName;
-    app.imagePath = `/static/${data.imageName}`;
+    app.imagePath = `${backend.general.protocol}${backend.general.ip}:${backend.general.port}/${backend.general.uploadFolder}/${data.imageName}`;
     return app;
 }
 
