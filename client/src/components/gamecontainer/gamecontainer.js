@@ -61,7 +61,7 @@ export default {
           if (!data.avaiable) {
             this.answered = userService.getQuestionAnswered();
             this.lengthtotal = this.answered.length;
-            this.lengthcorrect = this.answered.filter(item => item.index === item.correctAnswer).length;
+            this.lengthcorrect = this.answered.filter(item => item.isCorrect).length;
           }
         })
     },
