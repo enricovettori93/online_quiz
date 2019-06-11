@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 
 const { sessionInstance } = require('./config/express');
-const { backend } = require('./config/config');
+const { backend } = require('../config/config');
 const logService = require('./services/logger.services');
 const routes = require('./config/routes');
 const userModel = require('./db/models/user');

@@ -25,7 +25,7 @@ class QuestionService {
     }
 
     getNewQuestion() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             if (this.questions.length === userService.questionAnswered.length) {
                 resolve({
                     avaiable: false,
@@ -51,10 +51,9 @@ class QuestionService {
     validateAnswer(questionId, value) {
         return new Promise((resolve, reject) => {
             axios.post(`http://127.0.0.1:3005/api/questions/${questionId}`, { answer: value })
-                .then((data) => {
-                    const isCorrect = data.isCorrect;
-                    userService.pushQuestionAnswered(questionId, isCorrect, data.correct);
-                    resolve(isCorrect);
+                .then((response) => {
+                    userService.pushQuestionAnswered(questionId, response.isCorrect);
+                    resolve(response.data);
                 })
                 .catch((err) => {
                     reject(err);
@@ -64,5 +63,4 @@ class QuestionService {
 }
 
 const questionService = new QuestionService;
-
 export default questionService;

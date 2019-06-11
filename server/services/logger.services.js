@@ -1,5 +1,5 @@
 const colors = require('colors');
-const { backend } = require('../config/config');
+const { backend } = require('../../config/config');
 
 class LogService {
     constructor() {

@@ -1,5 +1,5 @@
 const session = require('express-session');
-const { backend } = require('../config/config');
+const { backend } = require('../../config/config');
 
 const sessionInstance = session({
     secret: backend.secret.password,

@@ -77,6 +77,7 @@ export default {
       this.lengthcorrect = '';
       this.lengthtotal = '';
       this.answered = '';
+      this.answers = [];
     },
     playAgain: function() {
       userService.resetQuestionAnswered();

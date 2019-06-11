@@ -14,10 +14,12 @@
           </div>
         </div>
         <div class="send">
-          <button type="submit" :disabled="dataReturned !== ''" class="btn btn-primary">Invia</button>
+          <button type="submit" :hidden="dataReturned !== ''" class="btn btn-primary">Invia</button>
         </div>
       </form>
       <div class="nextquestion" v-if="dataReturned !== ''">
+        <h1>Maggiori informazioni</h1>
+        <p>{{ dataReturned.description }}</p>
         <button v-on:click="getQuestion" class="btn btn-primary">Prossima domanda</button>
       </div>
     </div>

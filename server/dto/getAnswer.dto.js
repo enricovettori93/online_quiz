@@ -1,4 +1,4 @@
-const { backend } = require('../config/config');
+const { backend } = require('../../config/config');
 
 function getAnswerDTO(data)  {
     let app = {};

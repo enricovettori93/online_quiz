@@ -5,11 +5,10 @@ class UserService {
         this.getQuestionAnswered = this.getQuestionAnswered.bind(this);
     }
 
-    pushQuestionAnswered(id, isCorrect, correctAnswer) {
+    pushQuestionAnswered(id, isCorrect) {
         this.questionAnswered.push({
             id,
             isCorrect,
-            correctAnswer,
         });
     }
     
