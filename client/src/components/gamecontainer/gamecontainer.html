@@ -28,7 +28,7 @@
     <h1>Hai completato tutte le domande!</h1>
     <div>
       <p>
-        Hai risposto correttamente a {{ lengthcorrect }} domande su {{ lengthtotal }}.
+        Hai risposto correttamente a {{ lengthcorrect }} {{ lengthcorrect === 1 ? 'domanda' : 'domande'}} su {{ lengthtotal }}.
       </p>
       <p v-for="(answer, index) in answered">
         Domanda {{ index }}: {{ answer.isCorrect ? 'Risposta giusta' : 'Risposta sbagliata'}}
