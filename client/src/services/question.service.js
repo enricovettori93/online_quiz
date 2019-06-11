@@ -52,7 +52,7 @@ class QuestionService {
         return new Promise((resolve, reject) => {
             axios.post(`http://127.0.0.1:3005/api/questions/${questionId}`, { answer: value })
                 .then((response) => {
-                    userService.pushQuestionAnswered(questionId, response.isCorrect);
+                    userService.pushQuestionAnswered(response.data.id, response.data.isCorrect);
                     resolve(response.data);
                 })
                 .catch((err) => {
