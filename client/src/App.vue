@@ -1,16 +1,9 @@
 <template>
   <div id="app">
-    <gamecontainer/>
+    <div id="nav">
+      <router-link to="/">Gioca</router-link> |
+      <router-link to="/addquestion">Aggiungi una domanda</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
-
-<script>
-import gamecontainer from './components/gamecontainer/index.vue'
-
-export default {
-  name: 'app',
-  components: {
-    gamecontainer
-  }
-}
-</script>
