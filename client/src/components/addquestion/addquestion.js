@@ -49,9 +49,16 @@ export default {
         file: this.file,
         correctAnswer: this.correctAnswer,
       };
-      questionService.postNewQuestion(body)
-        .then(() => console.log('OK'))
-        .catch(err => console.error(err));
+      if (this.correctAnswer !== this.answer1 &&
+        this.correctAnswer !== this.answer2 &&
+        this.correctAnswer !== this.answer3 &&
+        this.correctAnswer !== this.answer4) {
+          console.error('ahiahi');
+      } else {
+        questionService.postNewQuestion(body)
+          .then(() => console.log('OK'))
+          .catch(err => console.error(err));
+      }
     },
     filesChange(files) {
       this.file = files[0] || null;
