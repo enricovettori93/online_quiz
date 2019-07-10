@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+import questionService from '../../services/question.service';
+
 export default {
   name: 'addquestion',
   components: {},
@@ -23,6 +26,7 @@ export default {
       correct: null,
       file: null,
       description: null,
+      correctAnswer: null,
     }
   },
   computed: {
@@ -35,6 +39,19 @@ export default {
     goForm() {
       // eslint-disable-next-line no-console
       console.log('subit del form');
+      const body = {
+        question: this.question,
+        answer1: this.answer1,
+        answer2: this.answer2,
+        answer3: this.answer3,
+        answer4: this.answer4,
+        description: this.description,
+        file: this.file,
+        correctAnswer: this.correctAnswer,
+      };
+      questionService.postNewQuestion(body)
+        .then(() => console.log('OK'))
+        .catch(err => console.error(err));
     },
     filesChange(files) {
       this.file = files[0] || null;

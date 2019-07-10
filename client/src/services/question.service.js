@@ -8,6 +8,7 @@ class QuestionService {
 
         this.fetchAllQuestions = this.fetchAllQuestions.bind(this);
         this.getNewQuestion = this.getNewQuestion.bind(this);
+        this.postNewQuestion = this.postNewQuestion.bind(this);
     }
 
     fetchAllQuestions() {
@@ -18,6 +19,7 @@ class QuestionService {
                     resolve();
                 })
                 .catch(err => {
+                    // eslint-disable-next-line no-console
                     console.error(err);
                     reject(err);
                 });
@@ -59,6 +61,21 @@ class QuestionService {
                     reject(err);
                 });
         })
+    }
+
+    postNewQuestion(newQuestion) {
+        let formData = new FormData();
+        Object.keys(newQuestion).forEach((item) => {
+            if (item !== 'file') {
+                formData.set(item, newQuestion[item]);
+            }
+        });
+        formData.append("img", newQuestion.file);
+        return axios.post(`http://127.0.0.1:3005/api/questions/`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+        });
     }
 }
 
