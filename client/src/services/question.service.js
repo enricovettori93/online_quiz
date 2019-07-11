@@ -65,12 +65,7 @@ class QuestionService {
 
     postNewQuestion(newQuestion) {
         let formData = new FormData();
-        Object.keys(newQuestion).forEach((item) => {
-            if (item !== 'file') {
-                formData.set(item, newQuestion[item]);
-            }
-        });
-        formData.append("img", newQuestion.file);
+        Object.keys(newQuestion).forEach(item => formData.set(item, newQuestion[item]));
         return axios.post(`http://127.0.0.1:3005/api/questions/`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'

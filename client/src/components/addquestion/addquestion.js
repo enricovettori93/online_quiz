@@ -46,7 +46,7 @@ export default {
         answer3: this.answer3,
         answer4: this.answer4,
         description: this.description,
-        file: this.file,
+        img: this.file,
         correctAnswer: this.correctAnswer,
       };
       if (this.correctAnswer !== this.answer1 &&
