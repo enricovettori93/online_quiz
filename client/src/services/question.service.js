@@ -45,7 +45,7 @@ class QuestionService {
             resolve({
                 avaiable: true,
                 message: '',
-                newQuestion: avaiable[0],
+                newQuestion: avaiable[Math.floor(Math.random() * avaiable.length)],
             })
         });
     }
