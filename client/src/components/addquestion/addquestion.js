@@ -56,8 +56,23 @@ export default {
           console.error('ahiahi');
       } else {
         questionService.postNewQuestion(body)
-          .then(() => console.log('OK'))
-          .catch(err => console.error(err));
+          .then(() => {
+            this.$notify({
+              group: 'newquestion',
+              title: 'Nuova domanda',
+              text: 'La domanda è stata aggiunta con successo',
+              type: 'success',
+            });
+          })
+          .catch((err) => {
+            this.$notify({
+              group: 'newquestion',
+              title: 'Nuova domanda',
+              text: 'Errore durante l\'inserimento della domanda',
+              type: 'error',
+            });
+            console.error(err);
+          });
       }
     },
     filesChange(files) {
