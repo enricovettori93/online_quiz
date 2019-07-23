@@ -36,6 +36,17 @@ export default {
 
   },
   methods: {
+    resetData() {
+      this.question = null;
+      this.answer1 = null;
+      this.answer2 = null;
+      this.answer3 = null;
+      this.answer4 = null;
+      this.correct = null;
+      this.file = null;
+      this.description = null;
+      this.correctAnswer = null;
+    },
     goForm() {
       // eslint-disable-next-line no-console
       console.log('subit del form');
@@ -58,7 +69,7 @@ export default {
         questionService.postNewQuestion(body)
           .then(() => {
             this.$notify({
-              group: 'newquestion',
+              group: 'notify',
               title: 'Nuova domanda',
               text: 'La domanda è stata aggiunta con successo',
               type: 'success',
@@ -66,7 +77,7 @@ export default {
           })
           .catch((err) => {
             this.$notify({
-              group: 'newquestion',
+              group: 'notify',
               title: 'Nuova domanda',
               text: 'Errore durante l\'inserimento della domanda',
               type: 'error',
