@@ -23,18 +23,18 @@
         <button v-on:click="getQuestion" class="btn btn-primary">Prossima domanda</button>
       </div>
     </div>
-  </div>
-  <div v-if="!newQuestionAvaiable" class="nogame">
-    <h1>Hai completato tutte le domande!</h1>
-    <div>
-      <p>
-        Hai risposto correttamente a {{ lengthcorrect }} {{ lengthcorrect === 1 ? 'domanda' : 'domande'}} su {{ lengthtotal }}.
-      </p>
-      <p v-for="(answer, index) in answered">
-        Domanda {{ index }}: {{ answer.isCorrect ? 'Risposta giusta' : 'Risposta sbagliata'}}
-      </p>
+    <div v-else class="nogame">
+      <h1>Hai completato tutte le domande!</h1>
       <div>
-        <button v-on:click="playAgain" class="btn btn-primary">Riprova</button>
+        <p>
+          Hai risposto correttamente a {{ lengthcorrect }} {{ lengthcorrect === 1 ? 'domanda' : 'domande'}} su {{ lengthtotal }}.
+        </p>
+        <p v-for="(answer, index) in answered">
+          Domanda {{ index }}: {{ answer.isCorrect ? 'Risposta giusta' : 'Risposta sbagliata'}}
+        </p>
+        <div>
+          <button v-on:click="playAgain" class="btn btn-primary">Riprova</button>
+        </div>
       </div>
     </div>
   </div>

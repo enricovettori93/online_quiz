@@ -74,6 +74,7 @@ export default {
               text: 'La domanda è stata aggiunta con successo',
               type: 'success',
             });
+            this.resetData();
           })
           .catch((err) => {
             this.$notify({
