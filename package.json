@@ -10,7 +10,8 @@
     "start-backend-prod": "cd server && node index.js",
     "install-client": "cd client && npm i",
     "start-mongo": "mongod --dbpath ./server/data",
-    "seeder": "cd server/db && node seeder.js"
+    "seeder": "cd server/db && node seeder.js",
+    "clear-db": "cd server/db && CLEAR=true node seeder.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "express": "^4.16.4",
     "express-fileupload": "^1.1.4",
     "express-session": "^1.16.1",
+    "fs-extra": "^8.1.0",
     "mongoose": "^5.5.3",
     "mongoose-seed": "^0.6.0",
     "nodemon": "^1.18.11"

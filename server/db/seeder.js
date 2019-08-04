@@ -1,20 +1,36 @@
 const seeder = require('mongoose-seed');
+const fs = require('fs-extra');
+const config = require('../../config/config');
+
+const clear = process.env.CLEAR || false;
+
+const imagefolder = `../${config.backend.general.uploadFolder}`;
 
 // MongoDB conf
-const config = {
+const mongoconfig = {
     port: 27017,
     ip: 'localhost',
     name: 'online_quiz',
 }
 
-seeder.connect(`mongodb://${config.ip}:${config.port}/${config.name}`, function() {
+seeder.connect(`mongodb://${mongoconfig.ip}:${mongoconfig.port}/${mongoconfig.name}`, function() {
     seeder.loadModels([
         'models/questionSeed.js',
     ]);
     seeder.clearModels(['Question'], function() {
-        seeder.populateModels(questions, function() {
+        if (!clear) {
+            seeder.populateModels(questions, function() {
+                seeder.disconnect();
+            });
+        } else {
+            const files = fs.readdirSync(imagefolder);
+            files.forEach((item) => {
+                if (!item.includes('test') && !item.includes('gitkeep')) {
+                    fs.unlinkSync(`${imagefolder}/${item}`);
+                }
+            });
             seeder.disconnect();
-        });
+        }
     });
 });
 

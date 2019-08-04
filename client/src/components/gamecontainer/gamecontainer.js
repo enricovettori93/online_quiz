@@ -32,7 +32,15 @@ export default {
   created() {
     questionService.fetchAllQuestions()
       .then(() => this.getQuestion())
-      .catch(err => console.error(err));
+      .catch((err) => {
+        this.$notify({
+          group: 'notify',
+          title: 'Errore',
+          text: 'Errore durante il reperimento delle domande',
+          type: 'error',
+        });
+        console.error(err);
+      });
   },
   methods: {
     getQuestion: function() {
@@ -68,7 +76,15 @@ export default {
     postQuestion: function() {
       questionService.validateAnswer(this.question.id, this.answer)
         .then(data => this.dataReturned = data)
-        .catch(err => console.error(err));
+        .catch((err) => {
+          this.$notify({
+            group: 'notify',
+            title: 'Errore',
+            text: 'Errore durante il reperimento delle domande',
+            type: 'error',
+          });
+          console.error(err);
+        });
     },
     resetForm: function() {
       this.question = '';

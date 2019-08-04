@@ -2,39 +2,33 @@
 @import '../../styles/_colors';
 
 .gamecontainer {
-
     height: 100%;
 
     .ingame {
-
         height: inherit;
 
         img {
             &.gameimg {
-                height: 40vh;
                 margin-top: 1em;
                 margin-bottom: 2em;
+                border-radius: 20px;
             }
         }
 
         form {
-
             margin-bottom: 1em;
 
             div.send {
                 margin-top: 1em;
             }
-
             button {
                 width: $width-button;
             }
 
             label {
-
                 &.btn-light {
                     border-color: $primary-black;
                 }
-
                 input[type="radio"] {
                     display: none;
                 }
@@ -44,6 +38,36 @@
 
         .nextquestion {
             margin-bottom: 2em;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    /* tablets and desktop */
+    .gamecontainer {
+        .ingame {
+            img {
+                &.gameimg {
+                    width: 40%;
+                }
+            }
+        }
+        .nextquestion {
+            width: 70%;
+            margin: 0 15%;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    /* phones */
+    .gamecontainer {
+        .ingame {
+            img {
+                &.gameimg {
+                    width: 80%;
+                }
+            }
         }
     }
 }
