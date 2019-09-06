@@ -30,6 +30,7 @@ export default {
 
   },
   created() {
+    userService.resetQuestionAnswered();
     questionService.fetchAllQuestions()
       .then(() => this.getQuestion())
       .catch((err) => {
