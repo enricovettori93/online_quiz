@@ -4,6 +4,11 @@
 .gamecontainer {
     height: 100%;
 
+    button {
+        width: $width-button;
+        height: $height-button;
+    }
+
     .ingame {
         height: inherit;
 
@@ -21,18 +26,25 @@
             div.send {
                 margin-top: 1em;
             }
-            button {
-                width: $width-button;
-            }
 
-            label {
-                &.btn-light {
-                    border-color: $primary-black;
+            .single-button {
+                justify-content: center;
+                display: flex;
+                align-items: center;
+
+                label {
+                    &.btn-light {
+                        border-color: $primary-black;
+                    }
+                    input[type="radio"] {
+                        display: none;
+                    }
+                    width: $width-button;
+                    height: $height-button;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 }
-                input[type="radio"] {
-                    display: none;
-                }
-                width: $width-button;
             }
         }
 

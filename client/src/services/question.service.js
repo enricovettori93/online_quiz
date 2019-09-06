@@ -1,7 +1,7 @@
 import axios from 'axios';
 import userService from './user.service';
+import { frontend } from '../config';
 
-//TODO: remove hardcode axios call
 class QuestionService {
     constructor() {
         this.questions = [];
@@ -13,7 +13,7 @@ class QuestionService {
 
     fetchAllQuestions() {
         return new Promise((resolve, reject) => {
-            axios.get('http://127.0.0.1:3005/api/questions')
+            axios.get(`${frontend.general.backendprotocol}${frontend.general.backendserver}:${frontend.general.backendport}/api/questions`)
                 .then((data) => {
                     this.questions = data.data;
                     resolve();
@@ -52,7 +52,7 @@ class QuestionService {
 
     validateAnswer(questionId, value) {
         return new Promise((resolve, reject) => {
-            axios.post(`http://127.0.0.1:3005/api/questions/${questionId}`, { answer: value })
+            axios.post(`${frontend.general.backendprotocol}${frontend.general.backendserver}:${frontend.general.backendport}/api/questions/${questionId}`, { answer: value })
                 .then((response) => {
                     userService.pushQuestionAnswered(response.data.id, response.data.isCorrect);
                     resolve(response.data);
@@ -66,7 +66,7 @@ class QuestionService {
     postNewQuestion(newQuestion) {
         let formData = new FormData();
         Object.keys(newQuestion).forEach(item => formData.set(item, newQuestion[item]));
-        return axios.post(`http://127.0.0.1:3005/api/questions/`, formData, {
+        return axios.post(`${frontend.general.backendprotocol}${frontend.general.backendserver}:${frontend.general.backendport}/api/questions`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
