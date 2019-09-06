@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     getQuestion: function() {
+      this.$root.$emit('enable-loader');
       this.resetForm();
       questionService.getNewQuestion()
         .then((returnData) => {
@@ -72,6 +73,7 @@ export default {
             this.lengthtotal = this.answered.length;
             this.lengthcorrect = this.answered.filter(item => item.isCorrect).length;
           }
+          setTimeout(() => this.$root.$emit('disable-loader'), 700);
         })
     },
     postQuestion: function() {
