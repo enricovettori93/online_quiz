@@ -1,11 +1,9 @@
 <template>
   <div id="app">
     <notifications group="notify"/>
-    <transition name="fade">
-      <div v-if="loading" id="loader">
-        <img src="./assets/loader.gif" alt="">
-      </div>
-    </transition>
+    <div v-if="loading" id="loader">
+      <img src="./assets/loader.gif" alt="">
+    </div>
     <div id="nav">
       <router-link to="/">Gioca</router-link> |
       <router-link to="/addquestion">Aggiungi una domanda</router-link>
@@ -43,12 +41,5 @@ export default {
     align-items: center;
     z-index: 9999;
     margin-top: -35px;
-  }
-
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .2s;
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
   }
 </style>
