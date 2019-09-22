@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import gamecontainer from './components/gamecontainer/index.vue'
-import addquestion from './components/addquestion/index.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import gamecontainer from './components/gamecontainer/GameContainer.vue';
+import addquestion from './components/addquestion/AddQuestion.vue';
 
 Vue.use(Router)
 
