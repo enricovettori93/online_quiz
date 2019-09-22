@@ -4,7 +4,7 @@ import Notifications from 'vue-notification'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './main.scss';
-import router from './router'
+import router from './router';
 
 Vue.config.productionTip = false;
 Vue.use(Notifications);

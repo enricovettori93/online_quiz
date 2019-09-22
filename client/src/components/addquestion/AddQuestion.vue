@@ -1,3 +1,24 @@
+<template>
+  <div class="addquestion">
+    <h1>Aggiungi una domanda</h1>
+    <div class="container">
+      <form v-on:submit.prevent="goForm" class="newquestion">
+        <input v-model="question" class="form-control" type="text" id="question" required :placeholder="formLabel.question">
+        <input v-model="answer1" class="form-control" type="text" id="answer1" required :placeholder="formLabel.answer1">
+        <input v-model="answer2" class="form-control" type="text" id="answer2" required :placeholder="formLabel.answer2">
+        <input v-model="answer3" class="form-control" ype="text" id="answer3" required :placeholder="formLabel.answer3">
+        <input v-model="answer4" class="form-control" type="text" id="answer4" required :placeholder="formLabel.answer4">
+        <input v-model="correctAnswer" class="form-control" type="text" id="correctanswer" required :placeholder="formLabel.correct">
+        <input v-model="description" class="form-control" type="text" id="description" required :placeholder="formLabel.description">
+        <input accept="image/x-png,image/gif,image/jpeg" type="file" id="file" required @change="filesChange($event.target.files)">
+        <label for="file">{{ formLabel.file }}</label>
+        <button class="btn btn-primary">{{ formLabel.go }}</button>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script> 
 /* eslint-disable no-console */
 import questionService from '../../services/question.service';
 
@@ -29,12 +50,8 @@ export default {
       correctAnswer: null,
     }
   },
-  computed: {
-
-  },
-  mounted () {
-
-  },
+  computed: { },
+  mounted () { },
   methods: {
     resetData() {
       this.question = null;
@@ -92,3 +109,22 @@ export default {
     }
   }
 }
+</script>
+
+<style lang="scss" scoped>
+
+.addquestion {
+  .container {
+    .newquestion{
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
+
+      input {
+        margin: 7px;
+      }
+    }
+  }
+}
+</style>
