@@ -4,10 +4,24 @@ function getAnswerDTO(data)  {
     let app = {};
     app.id = data._id;
     app.question = data.question;
-    app.answer1 = data.answer1;
-    app.answer2 = data.answer2;
-    app.answer3 = data.answer3;
-    app.answer4 = data.answer4;
+    app.answers = [
+        {
+            value: data.answer1,
+            index: 1
+        },
+        {
+            value: data.answer2,
+            index: 2
+        },
+        {
+            value: data.answer3,
+            index: 3
+        },
+        {
+            value: data.answer4,
+            index: 4
+        }
+    ];
     app.imageName = data.imageName;
     app.imagePath = `${backend.general.protocol}${backend.general.ip}:${backend.general.port}/${backend.general.uploadFolder}/${data.imageName}`;
     return app;

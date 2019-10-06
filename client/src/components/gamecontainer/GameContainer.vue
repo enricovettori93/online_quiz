@@ -1,12 +1,12 @@
 <template>
   <div class="gamecontainer">
     <div class="container-fluid game">
-      <div v-if="newQuestionAvaiable" class="ingame">
+      <div v-if="inGame" class="ingame">
         <h1>{{ question.question }}</h1>
         <img v-bind:src="question.imagePath" alt="gameImg" class="gameimg">
         <form @submit.prevent="postQuestion">
           <div class="btn-group btn-group-toggle row">
-            <div class="col-6 single-button" v-for="item in answers" :key="item.id">
+            <div class="col-6 single-button" v-for="item in question.answers" :key="item.index">
               <label class="btn" v-bind:class="[classAnswer, (answer === item.value) ? 'btn-primary' : 'btn-light']">
                 <input type="radio" :disabled="dataReturned !== ''" name="options" v-bind:id="item.index"
                   autocomplete="off" v-model="answer" v-bind:value="item.value">
@@ -25,217 +25,178 @@
         </div>
       </div>
       <div v-else class="nogame">
-        <h1>Hai completato tutte le domande!</h1>
-        <div>
-          <p>
-            Hai risposto correttamente a {{ lengthcorrect }} {{ lengthcorrect === 1 ? 'domanda' : 'domande'}} su {{ lengthtotal }}.
-          </p>
-          <p v-for="(answer, index) in answered" :key="index">
-            Domanda {{ index }}: {{ answer.isCorrect ? 'Risposta giusta' : 'Risposta sbagliata'}}
-          </p>
-          <div>
-            <button v-on:click="playAgain" class="btn btn-primary">Riprova</button>
-          </div>
-        </div>
+        <end-game/>
       </div>
     </div>
   </div>
 </template>
 
-<script> 
-import questionService from '../../services/question.service';
-import userService from '../../services/user.service';
+<script>
+  import { mapGetters } from 'vuex';
+  import EndGame from './EndGame.vue';
+  import questionService from '../../services/question.service';
 
-export default {
-  name: 'gamecontainer',
-  components: {},
-  props: [],
-  data () {
-    return {
-      question: '',
-      answer: '',
-      answers: [],
-      dataReturned: '',
-      newQuestionAvaiable: true,
-      lengthcorrect: '',
-      lengthtotal: '',
-      answered: ''
-    }
-  },
-  computed: {
-    classAnswer: function() {
-      if (this.dataReturned !== '') {
-        return (this.dataReturned.isCorrect) ? 'btn-success' : 'btn-danger';
-      } else {
-        return '';
+  export default {
+    name: 'gamecontainer',
+    components: {
+      EndGame
+    },
+    props: [],
+    data () {
+      return {
+        question: {},
+        answer: '',
+        dataReturned: '',
+        answered: ''
       }
-    }
-  },
-  mounted () {
-
-  },
-  created() {
-    userService.resetQuestionAnswered();
-    questionService.fetchAllQuestions()
-      .then(() => this.getQuestion())
-      .catch((err) => {
-        this.$notify({
-          group: 'notify',
-          title: 'Errore',
-          text: 'Errore durante il reperimento delle domande',
-          type: 'error',
-        });
-        console.error(err);
-      });
-  },
-  methods: {
-    getQuestion: function() {
-      this.$root.$emit('enable-loader');
-      this.resetForm();
-      questionService.getNewQuestion()
-        .then((returnData) => {
-          let data = returnData;
-          this.answers.push({
-            index: 0,
-            value: returnData.newQuestion.answer1,
-          });
-          this.answers.push({
-            index: 1,
-            value: returnData.newQuestion.answer2,
-          });
-          this.answers.push({
-            index: 2,
-            value: returnData.newQuestion.answer3,
-          });
-          this.answers.push({
-            index: 3,
-            value: returnData.newQuestion.answer4,
-          });
-          this.question = data.newQuestion;
-          this.newQuestionAvaiable = data.avaiable;
-          if (!data.avaiable) {
-            this.answered = userService.getQuestionAnswered();
-            this.lengthtotal = this.answered.length;
-            this.lengthcorrect = this.answered.filter(item => item.isCorrect).length;
-          }
-          setTimeout(() => this.$root.$emit('disable-loader'), 700);
-        })
     },
-    postQuestion: function() {
-      questionService.validateAnswer(this.question.id, this.answer)
-        .then(data => this.dataReturned = data)
-        .catch((err) => {
-          this.$notify({
-            group: 'notify',
-            title: 'Errore',
-            text: 'Errore durante il reperimento delle domande',
-            type: 'error',
+    computed: {
+      ...mapGetters({
+        inGame: 'question/GET_INGAME_STATUS',
+      }),
+      lengthtotal() {
+        return this.$store.state.question.questions.length;
+      },
+      classAnswer() {
+        if (this.dataReturned !== '') {
+          return (this.dataReturned.isCorrect) ? 'btn-success' : 'btn-danger';
+        } else {
+          return '';
+        }
+      }
+    },
+    mounted () {},
+    watch: {
+      inGame(newValue, oldValue) {
+        if (newValue === true && oldValue === false) {
+          this.fetchQuestion();
+        }
+      }
+    },
+    created() {
+      this.$store.dispatch('question/RESET_ANSWERED_QUESTION');
+      this.$store.dispatch('question/FETCH_ALL_QUESTIONS', { vm: this })
+        .then(() => this.fetchQuestion())
+        .catch(err => console.error(err));
+    },
+    methods: {
+      fetchQuestion() {
+        this.question = this.$store.getters['question/GET_SINGLE_QUESTION'];
+        if (Object.keys(this.question).length === 0) {
+          this.$store.dispatch('question/CHANGE_INGAME_STATUS', false);
+        }
+      },
+      getQuestion: function() {
+        this.resetForm();
+        this.fetchQuestion();
+      },
+      postQuestion: function() {
+        this.$store.dispatch('question/VALIDATE_QUESTION', { id: this.question.id, value: this.answer })
+          .then(data => this.dataReturned = data)
+          .catch((err) => {
+            this.$notify({
+              group: 'notify',
+              title: 'Errore',
+              text: 'Errore durante il reperimento delle domande',
+              type: 'error',
+            });
+            console.error(err);
           });
-          console.error(err);
-        });
-    },
-    resetForm: function() {
-      this.question = '';
-      this.answer = '';
-      this.dataReturned = '';
-      this.lengthcorrect = '';
-      this.lengthtotal = '';
-      this.answered = '';
-      this.answers = [];
-    },
-    playAgain: function() {
-      userService.resetQuestionAnswered();
-      this.getQuestion();
+      },
+      resetForm: function() {
+        this.answer = '';
+        this.dataReturned = '';
+        this.answered = '';
+        this.answers = [];
+      },
     }
   }
-}
-
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/_variables';
-@import '../../styles/_colors';
+  @import '../../styles/_variables';
+  @import '../../styles/_colors';
 
-.gamecontainer {
-  height: 100%;
+  .gamecontainer {
+    height: 100%;
 
-  button {
-    width: $width-button;
-    height: $height-button;
-  }
-
-  .ingame {
-    height: inherit;
-
-    img {
-      &.gameimg {
-        margin-top: 1em;
-        margin-bottom: 2em;
-        border-radius: 20px;
-      }
+    button {
+      width: $width-button;
+      height: $height-button;
     }
 
-    form {
-      margin-bottom: 1em;
+    .ingame {
+      height: inherit;
 
-      div.send {
-        margin-top: 1em;
+      img {
+        &.gameimg {
+          margin-top: 1em;
+          margin-bottom: 2em;
+          border-radius: 20px;
+        }
       }
 
-      .single-button {
-        justify-content: center;
-        display: flex;
-        align-items: center;
+      form {
+        margin-bottom: 1em;
 
-        label {
-          &.btn-light {
-            border-color: $primary-black;
-          }
-          input[type="radio"] {
-            display: none;
-          }
-          width: $width-button;
-          height: $height-button;
-          display: flex;
+        div.send {
+          margin-top: 1em;
+        }
+
+        .single-button {
           justify-content: center;
+          display: flex;
           align-items: center;
+
+          label {
+            &.btn-light {
+              border-color: $primary-black;
+            }
+            input[type="radio"] {
+              display: none;
+            }
+            width: $width-button;
+            height: $height-button;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
         }
       }
-    }
 
-    .nextquestion {
-        margin-bottom: 2em;
-    }
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  /* tablets and desktop */
-  .gamecontainer {
-    .ingame {
-      img {
-        &.gameimg {
-          width: 40%;
-        }
-      }
-    }
-    .nextquestion {
-      width: 70%;
-      margin: 0 15%;
-    }
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  /* phones */
-  .gamecontainer {
-    .ingame {
-      img {
-        &.gameimg {
-          width: 80%;
-        }
+      .nextquestion {
+          margin-bottom: 2em;
       }
     }
   }
-}
+
+  @media only screen and (min-width: 768px) {
+    /* tablets and desktop */
+    .gamecontainer {
+      .ingame {
+        img {
+          &.gameimg {
+            width: 40%;
+          }
+        }
+      }
+      .nextquestion {
+        width: 70%;
+        margin: 0 15%;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    /* phones */
+    .gamecontainer {
+      .ingame {
+        img {
+          &.gameimg {
+            width: 80%;
+          }
+        }
+      }
+    }
+  }
 </style>
