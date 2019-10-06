@@ -43,7 +43,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
   import questionService from '../../services/question.service';
 
   export default {
@@ -63,9 +62,6 @@
       }
     },
     computed: {
-      ...mapGetters({
-        questions: 'question/GET_SINGLE_QUESTION',
-      }),
       classAnswer: function() {
         if (this.dataReturned !== '') {
           return (this.dataReturned.isCorrect) ? 'btn-success' : 'btn-danger';
@@ -79,40 +75,17 @@
     },
     created() {
       this.$store.dispatch('question/RESET_ANSWERED_QUESTION');
-      this.$store.dispatch('question/FETCH_ALL_QUESTIONS', { vm: this });
+      this.$store.dispatch('question/FETCH_ALL_QUESTIONS', { vm: this })
+        .then(() => this.fetchQuestion())
+        .catch(err => console.error(err));
     },
     methods: {
+      fetchQuestion() {
+        this.question = this.$store.getters['question/GET_SINGLE_QUESTION'];
+      },
       getQuestion: function() {
-        this.$store.dispatch('ui/UPDATE_LOADING_STATUS', { loading: true });
         this.resetForm();
-        questionService.getNewQuestion()
-          .then((returnData) => {
-            let data = returnData;
-            this.answers.push({
-              index: 0,
-              value: returnData.newQuestion.answer1,
-            });
-            this.answers.push({
-              index: 1,
-              value: returnData.newQuestion.answer2,
-            });
-            this.answers.push({
-              index: 2,
-              value: returnData.newQuestion.answer3,
-            });
-            this.answers.push({
-              index: 3,
-              value: returnData.newQuestion.answer4,
-            });
-            this.question = data.newQuestion;
-            this.newQuestionAvaiable = data.avaiable;
-            if (!data.avaiable) {
-              this.answered = userService.getQuestionAnswered();
-              this.lengthtotal = this.answered.length;
-              this.lengthcorrect = this.answered.filter(item => item.isCorrect).length;
-            }
-            setTimeout(() => this.$store.dispatch('ui/UPDATE_LOADING_STATUS', { loading: false }), 800);
-          })
+        this.fetchQuestion();
       },
       postQuestion: function() {
         questionService.validateAnswer(this.question.id, this.answer)

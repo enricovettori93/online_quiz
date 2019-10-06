@@ -1,11 +1,11 @@
 import axios from 'axios';
-import userService from './user.service';
+// import userService from './user.service';
 import { frontend } from '../config';
 
 class QuestionService {
   constructor() {
     this.fetchAllQuestions = this.fetchAllQuestions.bind(this);
-    this.getNewQuestion = this.getNewQuestion.bind(this);
+    this.validateAnswer = this.validateAnswer.bind(this);
     this.postNewQuestion = this.postNewQuestion.bind(this);
   }
 
@@ -15,30 +15,6 @@ class QuestionService {
         .then(data => resolve(data.data))
         .catch(err => reject(err));
     })
-  }
-
-  getNewQuestion() {
-    return new Promise((resolve) => {
-      if (this.questions.length === userService.questionAnswered.length) {
-        resolve({
-          avaiable: false,
-          message: 'Hai completato tutte le domande',
-          newQuestion: {},
-        });
-      }
-      const answered = userService.getQuestionAnswered().map(item => item.id);
-      const avaiable = [];
-      this.questions.forEach((question) => {
-        if (answered.indexOf(question.id) === -1) {
-          avaiable.push(question);
-        }
-      });
-      resolve({
-        avaiable: true,
-        message: '',
-        newQuestion: avaiable[Math.floor(Math.random() * avaiable.length)],
-      })
-    });
   }
 
   validateAnswer(questionId, value) {

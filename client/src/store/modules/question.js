@@ -10,24 +10,26 @@ const getters = {
 // actions
 const actions = {
   FETCH_ALL_QUESTIONS({ commit }, { vm }) {
-    commit('ui/UPDATE_LOADING_STATUS', { loading: true }, { root: true });
-    QuestionService.fetchAllQuestions()
-      .then(data => commit('SAVE_QUESTIONS', data))
-      .then(() => commit('RESET_QUESTIONS'))
-      .catch(err => {
-        vm.$notify({
-          group: 'notify',
-          title: 'Errore',
-          text: 'Errore durante il reperimento delle domande',
-          type: 'error',
+    return new Promise((resolve, reject) => {
+      commit('ui/UPDATE_LOADING_STATUS', { loading: true }, { root: true });
+      QuestionService.fetchAllQuestions()
+        .then(data => commit('SAVE_QUESTIONS', data))
+        .then(() => commit('RESET_QUESTIONS'))
+        .then(() => resolve())
+        .catch(err => {
+          vm.$notify({
+            group: 'notify',
+            title: 'Errore',
+            text: 'Errore durante il reperimento delle domande',
+            type: 'error',
+          });
+          reject(err);
+        })
+        .finally(() => {
+          setTimeout(() => 
+            commit('ui/UPDATE_LOADING_STATUS', { loading: false }, { root: true }), 800);
         });
-        // eslint-disable-next-line no-console
-        console.log(err)
-      })
-      .finally(() => {
-        setTimeout(() => 
-          commit('ui/UPDATE_LOADING_STATUS', { loading: false }, { root: true }), 800);
-      });
+    })
   },
   UPDATE_QUESTION({ commit }, payload) {
     commit('UPDATE_QUESTION', payload);
@@ -39,7 +41,7 @@ const actions = {
     QuestionService.validateAnswer(question.id, question.value)
       .then(data => commit('VALIDATE_QUESTION', data))
       // eslint-disable-next-line no-console
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 };
 
