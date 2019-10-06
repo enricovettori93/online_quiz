@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import userService from './user.service';
 import { frontend } from '../config';
 
 class QuestionService {

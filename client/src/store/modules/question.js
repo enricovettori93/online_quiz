@@ -1,14 +1,21 @@
 import QuestionService from '../../services/question.service';
 
 const getters = {
+  GET_INGAME_STATUS: state => state.ingame,
   GET_ALL_QUESTIONS: state => state.questions,
   GET_SINGLE_QUESTION: (state) => {
     return state.questions.find(question => question.answered === false) || {};
-  }
+  },
+  GET_NUMBER_CORRECT_ANSWERS: (state) => {
+    return state.questions.filter(question => question.answered === true && question.correct === true).length;
+  },
 };
 
 // actions
 const actions = {
+  CHANGE_INGAME_STATUS({ commit }, status) {
+    commit('CHANGE_INGAME_STATUS', status);
+  },
   FETCH_ALL_QUESTIONS({ commit }, { vm }) {
     return new Promise((resolve, reject) => {
       commit('ui/UPDATE_LOADING_STATUS', { loading: true }, { root: true });
@@ -38,15 +45,22 @@ const actions = {
     commit('RESET_QUESTIONS');
   },
   VALIDATE_QUESTION({ commit }, question) {
-    QuestionService.validateAnswer(question.id, question.value)
-      .then(data => commit('VALIDATE_QUESTION', data))
-      // eslint-disable-next-line no-console
-      .catch(err => console.error(err))
+    return new Promise((resolve, reject) => {
+      QuestionService.validateAnswer(question.id, question.value)
+      .then((data) => {
+        commit('VALIDATE_QUESTION', data);
+        resolve(data);
+      })
+      .catch(err => reject(err))
+    })
   }
 };
 
 // mutations
 const mutations = {
+  CHANGE_INGAME_STATUS(state, payload) {
+    state.ingame = payload;
+  },
   SAVE_QUESTIONS(state, payload) {
     state.questions = payload;
   },
@@ -73,6 +87,7 @@ const mutations = {
 // initial state
 const state = {
   questions: [],
+  ingame: true,
 };
 
 export default {
